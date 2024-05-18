@@ -1,6 +1,7 @@
 import { Arimo } from "next/font/google";
 import { Libre_Franklin } from "next/font/google";
 import "./globals.css";
+import { ClerkProvider } from "@clerk/nextjs";
 
 const arimo = Arimo({
   subsets: ["latin"],
@@ -19,10 +20,12 @@ export default function Layout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={arimo.variable + " " + libre_franklin.variable}>
-        {children}
-      </body>
-    </html>
+    <ClerkProvider>
+      <html lang="en">
+        <body className={`${arimo.variable} ${libre_franklin.variable}`}>
+          {children}
+        </body>
+      </html>
+    </ClerkProvider>
   );
 }

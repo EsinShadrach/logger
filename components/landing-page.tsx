@@ -34,6 +34,7 @@ import Link from "next/link";
 import { Input } from "~/components/ui/input";
 import { Button } from "~/components/ui/button";
 import Image from "next/image";
+import { UserButton } from "@clerk/nextjs";
 
 export function LandingPage() {
   return (
@@ -43,19 +44,25 @@ export function LandingPage() {
           <BugIcon className="w-6 h-6" />
           <span className="sr-only">Flutter Error Logger</span>
         </Link>
-        <nav className="flex ml-auto gap-4 sm:gap-6">
+        <nav className="flex items-center ml-auto gap-4 sm:gap-6">
+          <Link
+            className="text-sm font-medium hover:underline underline-offset-4"
+            href="#"
+          >
+            Dashboard
+          </Link>
           <Link
             className="text-sm font-medium hover:underline underline-offset-4"
             href="#"
           >
             Features
           </Link>
-          <Link
-            className="text-sm font-medium hover:underline underline-offset-4"
-            href="#"
-          >
-            Pricing
-          </Link>
+          {/** <Link
+              className="text-sm font-medium hover:underline underline-offset-4"
+              href="#"
+            >
+              Pricing
+            </Link> */}
           <Link
             className="text-sm font-medium hover:underline underline-offset-4"
             href="#"
@@ -68,6 +75,7 @@ export function LandingPage() {
           >
             Contact
           </Link>
+          <UserButton />
         </nav>
       </header>
       <main className="flex-1">
@@ -88,7 +96,7 @@ export function LandingPage() {
                 <div className="flex flex-col gap-2 min-[400px]:flex-row">
                   <Link
                     className="inline-flex items-center justify-center h-10 px-8 text-sm font-medium bg-gray-900 shadow rounded-md text-gray-50 transition-colors hover:bg-gray-900/90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-gray-950 disabled:pointer-events-none disabled:opacity-50 dark:bg-gray-50 dark:text-gray-900 dark:hover:bg-gray-50/90 dark:focus-visible:ring-gray-300"
-                    href="#"
+                    href="/sign-up"
                   >
                     Sign Up
                   </Link>
@@ -192,7 +200,9 @@ export function LandingPage() {
                   placeholder="Enter your email"
                   type="email"
                 />
-                <Button type="submit">Sign Up</Button>
+                <Button type="submit" asChild>
+                  <Link href="/sign-up">Sign Up</Link>
+                </Button>
               </form>
               <p className="text-xs text-gray-500 dark:text-gray-400">
                 Sign up to get started with our Flutter error logging solution.
@@ -206,7 +216,8 @@ export function LandingPage() {
       </main>
       <footer className="flex flex-col items-center w-full px-4 py-6 border-t gap-2 sm:flex-row shrink-0 md:px-6">
         <p className="text-xs text-gray-500 dark:text-gray-400">
-          © 2024 Flutter Error Logger. All rights reserved.
+          © {new Date().getFullYear()} Flutter Error Logger. All rights
+          reserved.
         </p>
         <nav className="flex sm:ml-auto gap-4 sm:gap-6">
           <Link className="text-xs hover:underline underline-offset-4" href="#">
