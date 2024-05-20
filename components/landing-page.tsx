@@ -38,22 +38,23 @@ import { UserButton } from "@clerk/nextjs";
 
 export function LandingPage() {
   return (
-    <div className="flex flex-col min-h-[100dvh]">
+    <div className="flex flex-col min-h-[100dvh] scroll-smooth">
       <header className="flex items-center px-4 lg:px-6 h-14">
         <Link className="flex items-center justify-center" href="#">
           <BugIcon className="w-6 h-6" />
           <span className="sr-only">Flutter Error Logger</span>
         </Link>
-        <nav className="flex items-center ml-auto gap-4 sm:gap-6">
+        <nav className="flex items-center ml-auto gap-4 sm:gap-6 scroll-smooth">
           <Link
-            className="text-sm font-medium hover:underline underline-offset-4"
+            className="text-sm font-medium hover:underline underline-offset-4 scroll-smooth"
             href="#"
           >
             Dashboard
           </Link>
           <Link
             className="text-sm font-medium hover:underline underline-offset-4"
-            href="#"
+            href="#features"
+            scroll={true}
           >
             Features
           </Link>
@@ -119,7 +120,7 @@ export function LandingPage() {
           </div>
         </section>
         <section className="w-full py-12 bg-gray-100 md:py-24 lg:py-32 dark:bg-gray-800">
-          <div className="container px-4 md:px-6">
+          <div id="features" className="container px-4 md:px-6 scroll-smooth">
             <div className="flex flex-col items-center justify-center text-center space-y-4">
               <div className="space-y-2">
                 <div className="inline-block px-3 py-1 text-sm bg-gray-100 rounded-lg dark:bg-gray-800">

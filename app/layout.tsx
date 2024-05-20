@@ -1,6 +1,7 @@
 import { Arimo } from "next/font/google";
 import { Libre_Franklin } from "next/font/google";
 import "./globals.css";
+import "./clerk-customizations.css";
 import { ClerkProvider } from "@clerk/nextjs";
 
 const arimo = Arimo({

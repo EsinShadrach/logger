@@ -12,7 +12,7 @@ export default function SignUpTitle() {
     >
       <BugIcon />
       <div className="text-xl font-semibold sm:text-2xl">
-        {isVerifyPath ? "Verify your" : "Create a"} fudwud account
+        {isVerifyPath ? "Verify your" : "Create a"} error-logger account
       </div>
     </div>
   );
