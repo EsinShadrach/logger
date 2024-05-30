@@ -1,47 +1,36 @@
-import crypto from "crypto";
 import { NextRequest } from "next/server";
-import { User } from "~/db-handler/user";
-import { connectToDB } from "~/utils/db";
+import { UpdateUserFields, User, UserSchema } from "~/db-handler/user";
+import crypto from "crypto";
 
 export async function GET(req: NextRequest) {
-  console.log(req);
   const db = new User();
-  const users = await db.getAllUsers();
-  console.log(users);
+  const users = await db.createUser({
+    email: "rafe@mail.com",
+    image: "img",
+    username: "Rafe",
+  });
   return new Response(JSON.stringify(users), {
     status: 200,
     statusText: "Success",
   });
 }
 
-type UserParams = {
-  email: string;
-  username: string;
-  image: string;
-};
+export async function createUser(user: Omit<UserSchema, "authKey">) {
+  const { email } = user;
+  const db = new User();
+  const userExists = await db.findByMail(email);
 
-export async function createUser(user: UserParams) {
-  // const { email } = user;
-  // await connectToDB();
-  // const userExists = await User.findOne({ email: email });
-  // if (!userExists) {
-  //   const authKey = crypto.randomBytes(16).toString("hex");
-  //   console.log(authKey);
-  //   console.log(user);
-  //   // await User.create({
-  //   //   ...user,
-  //   //   authKey,
-  //   // });
-  // }
+  if (!userExists) {
+    const authKey = crypto.randomBytes(16).toString("hex");
+    await db.createUser({ ...user, authKey });
+  }
 }
 
-export async function updateUser(user: UserParams) {
-  // const { email } = user;
-  // await connectToDB();
-  // const userExists = await User.findOne({
-  //   email: email,
-  // });
-  // if (userExists) {
-  //   await User.updateOne({ email: email }, user);
-  // }
+export async function updateUser(email: string, user: UpdateUserFields) {
+  const db = new User();
+
+  const userExists = await db.findByMail(email);
+  if (userExists) {
+    await db.updateUser(email, user);
+  }
 }

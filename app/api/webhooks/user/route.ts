@@ -1,4 +1,5 @@
 import { WebhookEvent } from "@clerk/nextjs/server";
+import { User } from "~/db-handler/user";
 import { headers } from "next/headers";
 import { Webhook } from "svix";
 import { createUser, updateUser } from "../../user/route";
@@ -9,7 +10,7 @@ export async function POST(req: Request) {
 
   if (!WEBHOOK_SECRET) {
     throw new Error(
-      "Please add WEBHOOK_SECRET from Clerk Dashboard to .env or .env.local",
+      "Please add WEBHOOK_SECRET from Clerk Dashboard to .env or .env.local"
     );
   }
 
@@ -63,11 +64,20 @@ export async function POST(req: Request) {
   if (eventType === "user.updated") {
     const data = evt.data;
     console.log(data);
-    updateUser({
+    updateUser(data.email_addresses[0].email_address, {
       email: data.email_addresses[0].email_address,
       image: data.image_url,
       username: data.username ?? "",
     });
+  }
+
+  if (eventType === "user.deleted") {
+    const data = evt.data;
+    if (!data.id) {
+      return;
+    }
+    const db = new User();
+    await db.deleteUser(data.id);
   }
 
   return new Response("", { status: 200 });
