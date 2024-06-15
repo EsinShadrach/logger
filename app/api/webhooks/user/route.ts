@@ -2,7 +2,7 @@ import { WebhookEvent } from "@clerk/nextjs/server";
 import { User } from "~/db-handler/user";
 import { headers } from "next/headers";
 import { Webhook } from "svix";
-import { createUser, updateUser } from "../../user/route";
+import { createUser, updateUser } from "../../user/utils";
 
 export async function POST(req: Request) {
   const WEBHOOK_SECRET = process.env.WEBHOOK_SECRET;

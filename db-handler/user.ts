@@ -55,7 +55,7 @@ export class User {
     return user;
   }
 
-  async createUser(userModel: Omit<UserSchema, "authKey">) {
+  async createUser(userModel: UserSchema) {
     const uuid = randomUUID();
     const user = await client.execute({
       sql: "INSERT INTO users (id, email, username, image, authKey) VALUES ($id, $email, $username, $image, $authKey)",
