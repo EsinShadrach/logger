@@ -30,7 +30,7 @@ async function getUsersWithPostsCount(
 }
 
 export default async function Home() {
-  var xr = await getUsersWithPostsCount();
-  console.log(xr);
+  // var xr = await getUsersWithPostsCount();
+  // console.log(xr);
   return <LandingPage />;
 }
